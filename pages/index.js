@@ -1,51 +1,43 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { gql, GraphQLClient } from 'graphql-request';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
+import parse from "html-react-parser";
+import { usePrints } from "src/hooks/api/usePrints";
+import Button from "src/components/Button";
 
-const API_KEY = process.env.GRAPHCMS_API_KEY;
+export default function Home() {
+  const { push } = useRouter();
+  const [prints] = usePrints();
 
-const graphcms = new GraphQLClient(
-  API_KEY
-)
+  const _prints = prints
+    .filter((p) => p.isActive)
+    .map(({ title, description, coverPhoto, id, slug }) => (
+      <div
+        style={{
+          height: 600,
+          width: 400,
+          borderRadius: "1rem",
+          border: "1px solid black",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        key={id}
+      >
+        <h1>{title}</h1>
+        <div>{parse(description.html)}</div>
+        <div>
+          <img src={coverPhoto.url} height={400} width={400} />
+        </div>
+        <Button
+          onClick={() => {
+            push(`/print/${slug}`);
+          }}
+        >
+          View
+        </Button>
+      </div>
+    ));
 
-const query = gql`
-    {
-      prints {
-        id
-        slug
-        title
-        description {
-          html
-        }
-        isActive
-        coverPhoto {
-          url
-          width
-          height
-        }
-        triloShortCode
-        updatedAt
-      }
-    }
-`;
-
-export async function getStaticProps() {
-  const { prints } = await graphcms.request(query);
-  return {
-    props: {
-      prints
-    },
-    revalidate: 10
-  }
-}
-
-
-export default function Home({ prints }) {
-  return (
-    <pre className={styles.container}>
-      {JSON.stringify(prints, null, 2)}
-    </pre>
-  )
+  return <div style={{ display: "flex", flexWrap: "wrap" }}>{_prints}</div>;
 }
