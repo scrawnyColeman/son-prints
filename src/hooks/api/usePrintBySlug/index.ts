@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetch } from "src/utils";
 import { query } from "./gql";
-import { TReturns, TPrint } from "./types";
+import { TReturns, TPrint, initialState, TState } from "./constants";
 
 export const usePrintBySlug = (slug?: string): TReturns => {
-  const [state, setState] = useState<TPrint>();
+  const [state, setState] = useState<TState>(initialState);
 
   const getPrintBySlug = useCallback(async () => {
     const { print } = await fetch<{ print: TPrint }, { slug: string }>(query, {
@@ -16,8 +16,8 @@ export const usePrintBySlug = (slug?: string): TReturns => {
   useEffect(() => {
     (async () => {
       if (Boolean(slug)) {
-        const result = await getPrintBySlug();
-        setState(result);
+        const print = await getPrintBySlug();
+        setState({ print, isLoading: false });
       }
     })();
   }, [slug]);

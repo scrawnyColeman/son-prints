@@ -37,7 +37,7 @@
       "pages",
       "api",
       "tests",
-      "types.d.ts",
+      "types.ts",
       "next-env.d.ts",
       "jest-setup.ts"
     ]

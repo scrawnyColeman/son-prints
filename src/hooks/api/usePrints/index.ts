@@ -1,20 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetch } from "src/utils";
 import { query } from "./gql";
-import { TReturns, TState } from "./types";
+import { initialState, TPrints, TReturns, TState } from "./constants";
 
 export const usePrints = (): TReturns => {
-  const [state, setState] = useState<TState>([]);
+  const [state, setState] = useState<TState>(initialState);
 
   const getPrints = useCallback(async () => {
-    const { prints } = await fetch<{ prints: TState }>(query);
+    const { prints } = await fetch<{ prints: TPrints }>(query);
     return prints;
   }, []);
 
   useEffect(() => {
     (async () => {
-      const result = await getPrints();
-      setState(result);
+      const prints = await getPrints();
+      setState({ prints, isLoading: false, error: undefined });
     })();
   }, []);
 
