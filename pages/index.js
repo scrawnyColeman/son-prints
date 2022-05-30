@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-
 import parse from "html-react-parser";
+
 import { usePrints } from "src/hooks/api/usePrints";
 import Button from "src/components/Button";
 
