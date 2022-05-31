@@ -10,14 +10,12 @@ const PrintConnected = () => {
   } = useRouter();
 
   const [state] = usePrintBySlug(Array.isArray(id) ? id[0] : id);
+
   if (state.error) {
     // set error to global alert state
   }
-  return (
-    <>
-      <Print printState={state} push={push} />;
-    </>
-  );
+
+  return <Print printState={state} push={push} />;
 };
 
 export default PrintConnected;

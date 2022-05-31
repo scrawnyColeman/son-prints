@@ -9,4 +9,5 @@ export const StyledButton = styled.button`
   padding: 6px 1rem;
   border-radius: 6px;
   font: ${typography.toothThicc};
+  cursor: pointer;
 `;

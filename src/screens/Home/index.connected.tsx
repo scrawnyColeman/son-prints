@@ -12,8 +12,6 @@ const HomeConnected = () => {
     // set error to global alert state
   }
 
-  console.log("HOMECONNECTED");
-
   return <HomeScreen printsState={state} push={push} />;
 };
 

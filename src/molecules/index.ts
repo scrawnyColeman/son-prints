@@ -1,0 +1,1 @@
+export { PrintCard } from "./PrintCard";

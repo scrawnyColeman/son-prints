@@ -10,6 +10,10 @@ export type TState = {
   error?: string;
 };
 
+export type TPrintsResult = {
+  prints: TPrints;
+};
+
 export const initialState: TState = {
   prints: [],
   isLoading: true,
