@@ -7,12 +7,16 @@ export type Print = {
   };
   isActive: boolean;
   updatedAt: string;
-  triloShortCode: string;
   coverPhoto: {
     url: string;
     width: number;
     height: number;
   };
   tags: string[];
-  triloPrice: number;
+  sellableEntities: {
+    isAvailable: boolean;
+    triloPrice: number;
+    triloShortCode: string;
+    title: string;
+  }[];
 };

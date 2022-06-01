@@ -8,15 +8,18 @@ export const query = gql`
       description {
         html
       }
-      triloPrice
       isActive
       coverPhoto {
         url
         width
         height
       }
-      triloShortCode
-      triloPrice
+      sellableEntities {
+        isAvailable
+        triloPrice
+        triloShortCode
+        title
+      }
       updatedAt
       id
       tags
